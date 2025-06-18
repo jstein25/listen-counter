@@ -1,34 +1,3 @@
 body {
-  /* Center the form on the page */
-  text-align: center;
-}
-
-/* form styling: */
-form {
-  display: inline-block;
-  /* Form outline */
-  padding: 1em;
-  border: 1px solid #ccc;
-  border-radius: 1em;
-}
-
-form > input {
-  font: 1em sans-serif;
-  /* Uniform text field size */
-  width: 300px;
-  box-sizing: border-box;
-  /* Match form field borders */
-  border: 1px solid #999;
-}
-
-input:focus {
-  /* Set the outline width and style */
-  outline-style: solid;
-  /* To give a little highlight on active elements */
-  outline-color: #000;
-}
-
-#counterButton {
-  margin: 5px 5px 5px 5px;
-  display: inline-block;
+    text-align: center;
 }

@@ -6,35 +6,45 @@
   a message when ready to sing
 ===============================
 */
-// set up button
-const counterButton = document.getElementById("counterButton");
-const counter = document.getElementById("counter");
+// buttons
+const plusButton = document.querySelector("#plusButton");
+const minusButton = document.querySelector("#minusButton");
+const counter = document.querySelector("#counter");
 
 // form
-const form = document.getElementById("nameSong");
-const songInput = document.getElementById("song");
+const form = document.querySelector("#nameSong");
+const songInput = document.querySelector("#song");
 
 // text updates
-const readyNotice = document.getElementById("readyNotice");
-const currentSong = document.getElementById("currentSong");
+const readyNotice = document.querySelector("#readyNotice");
+const currentSong = document.querySelector("#currentSong");
 
 // button functionality
 let count = 0;
-
-counterButton.addEventListener("click", () => {
+plusButton.addEventListener("click", () => {
     count++;
     counter.textContent = count;
 
-    if (count >= 21) {
+    if (count >= 2) {
         readyNotice.textContent = "Ready to Sing!";
     }
 });
+minusButton.addEventListener("click", () => {
+    if (count > 0) {
+        count--;
+        counter.textContent = count;
+    }
 
-// form submission
+    if (count < 21) {
+        readyNotice.textContent = "";
+    }
+});
+
+// song form submission
 form.addEventListener("submit", (event) => {
     event.preventDefault();
     const song = songInput.value;
-    currentSong.textContent = song;
+    currentSong.textContent = "Current Song: " + song;
 
     //reset input box
     songInput.value = "";
