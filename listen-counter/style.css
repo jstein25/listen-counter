@@ -1,3 +1,31 @@
 body {
     text-align: center;
 }
+
+table {
+    /* size and placement */
+    width: 30%;
+    table-layout: fixed;
+    margin: auto;
+
+    /* design look */
+    border: 1px solid;
+    border-collapse: collapse;
+}
+
+th {
+    border: 1px solid;
+    background-color: #d8d6e1;
+}
+
+td {
+    border: 1px solid;
+    height: 1em;
+    text-align: left;
+}
+
+/* proper column sizing */
+th:nth-child(2),
+tr:nth-child(2) {
+    width: 15%;
+}
