@@ -6,17 +6,18 @@
   for listen counter program.
 ===============================
 */
+
 import { getCount } from "./buttons.js";
 
 let song = "";
 
 function storeSong() {
-    //store if current song is filled
     if (song) {
-        localStorage.setItem(song, getCount());
+        localStorage.setItem(song, getListensFromStorage());
     }
 }
 
+// sets song in storage
 function setSong(value) {
     song = value;
 }
@@ -25,14 +26,29 @@ function getSong() {
     return song;
 }
 
-//return js object with songs and number of listens
-function scanStorage() {
-    const localStorageObject = {};
-    for (let i = 0; i < localStorage.length; i++) {
-        const key = localStorage.key(i);
-        localStorageObject[key] = localStorage.getItem(key);
-    }
-    return localStorageObject;
+function setListens(value) {
+    localStorage.setItem(song, value);
 }
 
-export { storeSong, setSong, getSong, scanStorage };
+function getListensFromStorage() {
+    return parseInt(localStorage.getItem(song)) || 0;
+}
+
+//return js object with songs and number of listens
+function getLocalStorageEntries() {
+    const entries = [];
+    for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i);
+        entries.push([key, localStorage.getItem(key)]);
+    }
+    return entries;
+}
+
+export {
+    setSong,
+    getSong,
+    storeSong,
+    getListensFromStorage,
+    getLocalStorageEntries,
+    setListens,
+};

@@ -6,9 +6,21 @@
   for recent songs.
 ===============================
 */
-import { plus, minus, readyString } from "./modules/buttons.js";
-import { storeSong, setSong, getSong } from "./modules/song-storage.js";
-import { loadTable } from "./modules/table.js";
+import {
+    plus,
+    minus,
+    getCount,
+    setCount,
+    readyString,
+} from "./modules/buttons.js";
+import {
+    setSong,
+    getSong,
+    storeSong,
+    getListensFromStorage,
+    setListens,
+} from "./modules/song-storage.js";
+import { loadTableBody } from "./modules/table.js";
 
 const plusButton = document.querySelector("#plusButton");
 const minusButton = document.querySelector("#minusButton");
@@ -17,31 +29,45 @@ const form = document.querySelector("form");
 const songInput = document.querySelector("#song");
 const readyNotice = document.querySelector("#readyNotice");
 const currentSong = document.querySelector("#currentSong");
-const tblBody = document.querySelector("tbody");
+const tbody = document.querySelector("tbody");
 
 // update counters and store song
 plusButton.addEventListener("click", () => {
-    counter.textContent = plus();
-    readyNotice.textContent = readyString();
-    storeSong();
+    // only do if current song is picked
+    if (getSong()) {
+        counter.textContent = plus();
+        readyNotice.textContent = readyString();
+        setListens(getCount());
+        tbody.innerHTML = loadTableBody();
+    }
 });
 minusButton.addEventListener("click", () => {
-    counter.textContent = minus();
-    readyNotice.textContent = readyString();
-    storeSong();
+    // ""
+    if (getSong()) {
+        counter.textContent = minus();
+        readyNotice.textContent = readyString();
+        setListens(getCount());
+        tbody.innerHTML = loadTableBody();
+    }
 });
 
 // song form submission
 form.addEventListener("submit", (event) => {
     event.preventDefault();
+
+    // sets current song
     setSong(songInput.value);
-    currentSong.textContent = "Current Song: " + getSong();
+    setCount(getListensFromStorage());
     storeSong();
-    tblBody.innerHTML = loadTable();
+
+    // upon adding a song, update UI
+    currentSong.textContent = "Current Song: " + getSong();
+    counter.textContent = getCount();
+    tbody.innerHTML = loadTableBody();
 
     // reset input box
     songInput.value = "";
 });
 
 //populate table body upon page load (3 rows)
-tblBody.innerHTML = loadTable();
+tbody.innerHTML = loadTableBody();

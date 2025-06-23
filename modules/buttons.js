@@ -12,7 +12,7 @@ let count = 0;
 
 function plus() {
     count++;
-    if (count >= 2) {
+    if (count >= 21) {
         ready = true;
     }
     return count;
@@ -23,11 +23,15 @@ function minus() {
         count--;
     }
 
-    if (count < 2) {
+    if (count < 21) {
         ready = false;
     }
 
     return count;
+}
+
+function setCount(value) {
+    count = value;
 }
 
 function getCount() {
@@ -42,4 +46,4 @@ function readyString() {
     }
 }
 
-export { plus, minus, readyString, getCount };
+export { plus, minus, readyString, getCount, setCount };

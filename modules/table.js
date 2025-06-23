@@ -8,18 +8,36 @@
   insertion order based on local storage)
 ===============================
 */
-import { scanStorage } from "./song-storage.js";
+import { getLocalStorageEntries, getSong } from "./song-storage.js";
 
-function loadTable() {
-    let tblBody = "";
-    for (const [key, value] of Object.entries(scanStorage())) {
+function loadTableBody() {
+    const tableEntries = getLocalStorageEntries();
+    let tbody = "";
+    for (const [key, value] of tableEntries) {
         let row = "<tr>";
         row += `<td>${key}</td>`;
         row += `<td>${value}</td>`;
-        row += "<tr>";
-        tblBody += row;
+        row += "</tr>";
+        tbody += row;
     }
-    return tblBody;
+
+    // fill remaining rows
+    let i = 0;
+    while (tableEntries.length + i < 3) {
+        tbody += "<tr><td></td><td></td></tr>";
+        i++;
+    }
+    return tbody;
 }
 
-export { loadTable };
+// work on this implementation:
+
+// function updateTableListens() {
+//     // uses setSong(), since this fn will
+//     // only be called for the current song
+//     let listenCount = parseInt(localStorage.getItem(getSong());
+//     listenCount++;
+//     localStorage.setItem(getSong(), listenCount);
+// }
+
+export { loadTableBody };
